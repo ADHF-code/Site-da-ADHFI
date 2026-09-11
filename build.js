@@ -18,5 +18,9 @@ if (!html.includes('livroreclamacoes.pt')) {
   html = html.replace(anchor, `${complaintsLink}\n        ${anchor}`);
 }
 
+// The CFI approach belongs on the dedicated CFI website.
+html = html.replace(/\s*<a href="#abordagem">Abordagem<\/a>/, '');
+html = html.replace(/\n?<section class="abord" id="abordagem">[\s\S]*?<\/section>\s*/, '\n');
+
 fs.writeFileSync(path.join(outDir, 'index.html'), html);
 console.log('DHFI site built successfully.');
