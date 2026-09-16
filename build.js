@@ -78,23 +78,19 @@ if (!html.includes('id="pertencer"')) {
   html = html.replace('<section id="emacao">', `${bridge}\n<section id="emacao">`);
 }
 
-const partners = `
-<section class="partners" id="parceiros">
-  <div class="wrap">
-    <div class="partners-head reveal">
-      <div class="eyebrow">Parceiros do ecossistema</div>
-      <h2>Crescemos com quem partilha o percurso.</h2>
-      <p>Parcerias que acrescentam contexto, proximidade e novas oportunidades às famílias e aos jovens.</p>
-    </div>
-    <a class="partner-card reveal" href="https://moinho-do-bolinha.netlify.app/" aria-label="Conhecer O Moinho do Bolinha">
-      <div class="partner-mark"><img src="https://raw.githubusercontent.com/ADHF-code/Site-da-ADHFI/c383a4c8f06b8f923872312f629e260afd03c966/assets/moinho-bolinha-logo.webp" alt="O Moinho do Bolinha"></div>
-      <div class="partner-copy"><span>Parceiro educativo</span><strong>O Moinho do Bolinha</strong><p>Educação, acompanhamento e desenvolvimento em articulação com o ecossistema ADHFI.</p></div>
-      <div class="partner-arrow">↗</div>
-    </a>
-  </div>
-</section>`;
-if (!html.includes('id="parceiros"')) {
-  html = html.replace('<footer>', `${partners}\n<footer>`);
+const footerPartner = `
+      <div class="fcol fcol-partner">
+        <h4>Parcerias</h4>
+        <a class="partner-footer-link" href="https://moinho-do-bolinha.netlify.app/" target="_blank" rel="noopener" aria-label="Abrir site do Moinho do Bolinha">
+          <img src="https://raw.githubusercontent.com/ADHF-code/Site-da-ADHFI/c383a4c8f06b8f923872312f629e260afd03c966/assets/moinho-bolinha-logo.webp" alt="Moinho do Bolinha">
+          <span>Moinho do Bolinha ↗</span>
+        </a>
+      </div>`;
+if (!html.includes('class="fcol fcol-partner"')) {
+  html = html.replace(
+    '      <div class="fcol">\n        <h4>Associação</h4>',
+    `${footerPartner}\n      <div class="fcol">\n        <h4>Associação</h4>`
+  );
 }
 
 const styles = `
@@ -127,19 +123,11 @@ nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-sh
 .bridge h2{font-size:clamp(1.9rem,3.6vw,3rem);color:#fff;max-width:17ch}
 .bridge h2 span{color:var(--orange)}
 .bridge p{color:rgba(255,255,255,.76);font-size:1.05rem;max-width:52ch}
-.partners{background:#F7F5EF;padding:clamp(64px,8vw,96px) 0}
-.partners-head{max-width:700px;margin-bottom:30px}
-.partners-head .eyebrow{color:var(--teal);margin-bottom:12px}
-.partners-head h2{font-size:clamp(2rem,4vw,3rem);color:var(--navy);margin-bottom:14px}
-.partners-head p{color:var(--muted);max-width:56ch}
-.partner-card{display:grid;grid-template-columns:180px 1fr 48px;align-items:center;gap:28px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;transition:transform .22s,box-shadow .22s,border-color .22s}
-.partner-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(27,42,107,.12);border-color:transparent}
-.partner-mark{height:118px;border-radius:16px;background:#fff;display:grid;place-items:center;overflow:hidden;padding:8px}
-.partner-mark img{width:100%;height:100%;object-fit:contain;display:block}
-.partner-copy span{font-family:'Space Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);font-weight:700}
-.partner-copy strong{display:block;font-family:'Bricolage Grotesque';font-size:1.4rem;color:var(--navy);margin:4px 0 6px}
-.partner-copy p{color:var(--muted);font-size:.95rem}
-.partner-arrow{width:44px;height:44px;border-radius:50%;background:var(--mist);display:grid;place-items:center;font-size:1.1rem;color:var(--navy)}
+.footgrid{grid-template-columns:1.4fr 1fr 1fr 1fr 1fr}
+.partner-footer-link{display:flex!important;flex-direction:column;align-items:flex-start;gap:10px;max-width:150px}
+.partner-footer-link img{display:block;width:112px;height:72px;object-fit:contain;background:#fff;border-radius:10px;padding:6px}
+.partner-footer-link span{margin:0!important;color:rgba(255,255,255,.72)!important;font-size:.86rem!important}
+.partner-footer-link:hover span{color:#fff!important}
 @media(max-width:900px){
   .hero{padding-top:104px;padding-bottom:54px}
   .herogrid{display:block}
@@ -158,8 +146,7 @@ nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-sh
   .metastrip{display:none}
   .bridge-inner{grid-template-columns:1fr;gap:20px;border-radius:0;margin:0;padding:38px 22px}
   .bridge h2{max-width:none}
-  .partner-card{grid-template-columns:1fr 42px;gap:18px;padding:18px}
-  .partner-mark{grid-column:1 / -1;height:140px}
+  .footgrid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:520px){
   .herocta{display:grid;grid-template-columns:1fr}
@@ -167,6 +154,7 @@ nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-sh
   .mobile-valencies{grid-template-columns:1fr 1fr}
   .mobile-valencies a{min-height:104px;padding:16px}
   .mobile-valencies a:first-child{grid-column:1 / -1}
+  .footgrid{grid-template-columns:1fr}
 }
 `;
 if (!html.includes('/* ADHFI CONVERSION REFRESH */')) {
@@ -209,4 +197,4 @@ if (!html.includes("const routes = {")) {
 }
 
 fs.writeFileSync(path.join(outDir, 'index.html'), html);
-console.log('ADHFI ecosystem links and partnership built to dist/');
+console.log('ADHFI footer partnership built to dist/');
