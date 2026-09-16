@@ -86,9 +86,9 @@ const partners = `
       <h2>Crescemos com quem partilha o percurso.</h2>
       <p>Parcerias que acrescentam contexto, proximidade e novas oportunidades às famílias e aos jovens.</p>
     </div>
-    <a class="partner-card reveal" href="https://obolinha.pt/" target="_blank" rel="noopener" aria-label="Conhecer O Bolinha">
-      <div class="partner-mark">O BOLINHA</div>
-      <div class="partner-copy"><span>Parceiro educativo</span><strong>O Bolinha</strong><p>Educação, acompanhamento e desenvolvimento em articulação com o ecossistema ADHFI.</p></div>
+    <a class="partner-card reveal" href="https://obolinha.pt/" target="_blank" rel="noopener" aria-label="Conhecer O Moinho do Bolinha">
+      <div class="partner-mark"><img src="https://raw.githubusercontent.com/ADHF-code/Site-da-ADHFI/c383a4c8f06b8f923872312f629e260afd03c966/assets/moinho-bolinha-logo.webp" alt="O Moinho do Bolinha"></div>
+      <div class="partner-copy"><span>Parceiro educativo</span><strong>O Moinho do Bolinha</strong><p>Educação, acompanhamento e desenvolvimento em articulação com o ecossistema ADHFI.</p></div>
       <div class="partner-arrow">↗</div>
     </a>
   </div>
@@ -135,7 +135,8 @@ nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-sh
 .partners-head p{color:var(--muted);max-width:56ch}
 .partner-card{display:grid;grid-template-columns:180px 1fr 48px;align-items:center;gap:28px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;transition:transform .22s,box-shadow .22s,border-color .22s}
 .partner-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(27,42,107,.12);border-color:transparent}
-.partner-mark{height:88px;border-radius:16px;background:var(--orange);display:grid;place-items:center;color:var(--ink);font-family:'Bricolage Grotesque';font-weight:800;font-size:1.25rem;letter-spacing:-.02em}
+.partner-mark{height:118px;border-radius:16px;background:#fff;display:grid;place-items:center;overflow:hidden;padding:8px}
+.partner-mark img{width:100%;height:100%;object-fit:contain;display:block}
 .partner-copy span{font-family:'Space Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);font-weight:700}
 .partner-copy strong{display:block;font-family:'Bricolage Grotesque';font-size:1.4rem;color:var(--navy);margin:4px 0 6px}
 .partner-copy p{color:var(--muted);font-size:.95rem}
@@ -160,7 +161,7 @@ nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-sh
   .bridge-inner{grid-template-columns:1fr;gap:20px;border-radius:0;margin:0;padding:38px 22px}
   .bridge h2{max-width:none}
   .partner-card{grid-template-columns:1fr 42px;gap:18px;padding:18px}
-  .partner-mark{grid-column:1 / -1;height:72px}
+  .partner-mark{grid-column:1 / -1;height:140px}
 }
 @media(max-width:520px){
   .herocta{display:grid;grid-template-columns:1fr}
