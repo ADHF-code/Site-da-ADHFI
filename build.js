@@ -54,9 +54,9 @@ html = html.replace(
 
 const mobileValencies = `
 <div class="mobile-valencies" aria-label="Valências ADHFI">
-  <a href="https://cfi-lab.netlify.app/" target="_blank" rel="noopener"><strong>CFI</strong><span>Estudo & autonomia</span><b>↗</b></a>
-  <a href="https://ifchallenge.netlify.app/" target="_blank" rel="noopener"><strong>IFC</strong><span>Desporto & desenvolvimento</span><b>↗</b></a>
-  <a href="https://mbinternational.netlify.app/" target="_blank" rel="noopener"><strong>MBi</strong><span>Experiências internacionais</span><b>↗</b></a>
+  <a href="https://cfi-lab.netlify.app/"><strong>CFI</strong><span>Estudo & autonomia</span><b>↗</b></a>
+  <a href="https://ifchallenge.netlify.app/"><strong>IFC</strong><span>Desporto & desenvolvimento</span><b>↗</b></a>
+  <a href="https://mbinternational.netlify.app/"><strong>MBi</strong><span>Experiências internacionais</span><b>↗</b></a>
   <a href="#valencias"><strong>Digital Lab</strong><span>Tecnologia & criação</span><b>↓</b></a>
   <a href="#valencias"><strong>Nexu</strong><span>Relações & oportunidades</span><b>↓</b></a>
 </div>`;
@@ -86,7 +86,7 @@ const partners = `
       <h2>Crescemos com quem partilha o percurso.</h2>
       <p>Parcerias que acrescentam contexto, proximidade e novas oportunidades às famílias e aos jovens.</p>
     </div>
-    <a class="partner-card reveal" href="https://obolinha.pt/" target="_blank" rel="noopener" aria-label="Conhecer O Moinho do Bolinha">
+    <a class="partner-card reveal" href="https://moinho-do-bolinha.netlify.app/" aria-label="Conhecer O Moinho do Bolinha">
       <div class="partner-mark"><img src="https://raw.githubusercontent.com/ADHF-code/Site-da-ADHFI/c383a4c8f06b8f923872312f629e260afd03c966/assets/moinho-bolinha-logo.webp" alt="O Moinho do Bolinha"></div>
       <div class="partner-copy"><span>Parceiro educativo</span><strong>O Moinho do Bolinha</strong><p>Educação, acompanhamento e desenvolvimento em articulação com o ecossistema ADHFI.</p></div>
       <div class="partner-arrow">↗</div>
@@ -100,7 +100,6 @@ if (!html.includes('id="parceiros"')) {
 const styles = `
 /* ADHFI CONVERSION REFRESH */
 .card-cta{margin-top:18px;font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;letter-spacing:.03em;color:var(--accent,var(--navy));pointer-events:none}
-
 nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(11,18,48,.08);padding:14px 0}
 .navlinks a{color:rgba(11,18,48,.72)}
 .navlinks a:hover{color:var(--ink)}
@@ -119,15 +118,15 @@ nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-sh
 .metastrip .l{color:rgba(11,18,48,.55)}
 .constel{background:linear-gradient(145deg,#0B1230,#18245F);border-radius:30px;padding:22px;box-shadow:0 28px 70px rgba(11,18,48,.2)}
 .constel-legend{color:#fff}
+#constel .node[role="link"]{cursor:pointer;transition:filter .18s ease,opacity .18s ease}
+#constel .node[role="link"]:hover{filter:brightness(1.18)}
 .mobile-valencies{display:none}
-
 .bridge{padding:0;background:#fff}
 .bridge-inner{margin:12px auto;padding:clamp(34px,5vw,58px);border-radius:24px;background:linear-gradient(125deg,#0B1230,#18245F);color:#fff;display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}
 .bridge .eyebrow{color:var(--orange);margin-bottom:14px}
 .bridge h2{font-size:clamp(1.9rem,3.6vw,3rem);color:#fff;max-width:17ch}
 .bridge h2 span{color:var(--orange)}
 .bridge p{color:rgba(255,255,255,.76);font-size:1.05rem;max-width:52ch}
-
 .partners{background:#F7F5EF;padding:clamp(64px,8vw,96px) 0}
 .partners-head{max-width:700px;margin-bottom:30px}
 .partners-head .eyebrow{color:var(--teal);margin-bottom:12px}
@@ -141,7 +140,6 @@ nav,nav.solid{background:rgba(248,247,242,.94);backdrop-filter:blur(14px);box-sh
 .partner-copy strong{display:block;font-family:'Bricolage Grotesque';font-size:1.4rem;color:var(--navy);margin:4px 0 6px}
 .partner-copy p{color:var(--muted);font-size:.95rem}
 .partner-arrow{width:44px;height:44px;border-radius:50%;background:var(--mist);display:grid;place-items:center;font-size:1.1rem;color:var(--navy)}
-
 @media(max-width:900px){
   .hero{padding-top:104px;padding-bottom:54px}
   .herogrid{display:block}
@@ -178,32 +176,37 @@ if (!html.includes('/* ADHFI CONVERSION REFRESH */')) {
 const clickScript = `
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  const routes = [
-    {match:/\bCFI\b/i,url:'https://cfi-lab.netlify.app/'},
-    {match:/\bIFC\b/i,url:'https://ifchallenge.netlify.app/'},
-    {match:/\bMBI\b|MB INTERNATIONAL/i,url:'https://mbinternational.netlify.app/'},
-    {match:/DIGITAL|LAB/i,url:'#valencias'},
-    {match:/NEXU/i,url:'#valencias'}
-  ];
-  document.querySelectorAll('.constel .node').forEach(function(node){
-    const text=(node.textContent||'').replace(/\s+/g,' ').trim();
-    const route=routes.find(function(r){return r.match.test(text)});
+  const routes = {
+    'CFI':'https://cfi-lab.netlify.app/',
+    'IFC':'https://ifchallenge.netlify.app/',
+    'MBi':'https://mbinternational.netlify.app/',
+    'Digital Lab':'#valencias',
+    'Nexu':'#valencias'
+  };
+  document.querySelectorAll('#constel .node').forEach(function(node){
+    const name=(node.getAttribute('data-name')||'').trim();
+    const route=routes[name];
     if(!route) return;
     node.setAttribute('role','link');
     node.setAttribute('tabindex','0');
-    node.style.cursor='pointer';
+    node.setAttribute('aria-label','Abrir '+name);
     const go=function(){
-      if(route.url.charAt(0)==='#') document.querySelector(route.url)?.scrollIntoView({behavior:'smooth'});
-      else window.open(route.url,'_blank','noopener');
+      if(route.charAt(0)==='#') {
+        const target=document.querySelector(route);
+        if(target) target.scrollIntoView({behavior:'smooth'});
+      } else {
+        window.location.href=route;
+      }
     };
-    node.addEventListener('click',go);
+    node.addEventListener('click',function(e){e.stopPropagation();go();});
     node.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
   });
 });
 </script>`;
-if (!html.includes('const routes = [')) {
+html = html.replace(/<script>\s*document\.addEventListener\('DOMContentLoaded',[\s\S]*?const routes = \[[\s\S]*?<\/script>/, '');
+if (!html.includes("const routes = {")) {
   html = html.replace('</body>', `${clickScript}\n</body>`);
 }
 
 fs.writeFileSync(path.join(outDir, 'index.html'), html);
-console.log('ADHFI conversion refresh built to dist/');
+console.log('ADHFI ecosystem links and partnership built to dist/');
