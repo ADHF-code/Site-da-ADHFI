@@ -82,7 +82,7 @@ const footerPartner = `
       <div class="fcol fcol-partner">
         <h4>Parcerias</h4>
         <a class="partner-footer-link" href="https://moinho-do-bolinha.netlify.app/" target="_blank" rel="noopener" aria-label="Abrir site do Moinho do Bolinha">
-          <img src="https://raw.githubusercontent.com/ADHF-code/Site-da-ADHFI/c383a4c8f06b8f923872312f629e260afd03c966/assets/moinho-bolinha-logo.webp" alt="Moinho do Bolinha">
+          <img src="https://raw.githubusercontent.com/ADHF-code/Site-da-ADHFI/main/assets/moinho-bolinha-logo.webp" alt="Moinho do Bolinha">
           <span>Moinho do Bolinha ↗</span>
         </a>
       </div>`;
