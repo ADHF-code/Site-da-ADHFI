@@ -61,6 +61,7 @@
   }
   function resetDetails() {
     mode = ''; nonce = null; popup = null; code.value = '';
+    if (birth) { birth.value = ''; birth.setCustomValidity(''); birth.closest('label').hidden = false; ageInfo.textContent = ''; }
     eligible = false;
     if (membership) { associateCode.value = ''; category.value = 'nao_associado'; category.closest('label').hidden = false; participantKind.value = ''; updatePrice(); }
     if (form.elements.grupo) form.elements.grupo.value = '';
@@ -72,7 +73,7 @@
     status.textContent = '';
   }
   function proceed() {
-    if (!checkNif() || (birth && (!updateAge() || !birth.reportValidity()))) return false;
+    if (!checkNif()) return false;
     currentNif = nif.value; choice.hidden = false; next.hidden = true;
     return true;
   }
@@ -131,7 +132,11 @@
       form.elements[field].value = typeof value === 'string' ? value : '';
     }
     choice.hidden = true; details.disabled = false; details.hidden = false; summary.hidden = false;
-    if (birth && young.birth) birth.value = young.birth.slice(0,10);
+    if (birth) {
+      birth.value = typeof young.birth === 'string' ? young.birth.slice(0,10) : '';
+      birth.closest('label').hidden = false;
+      if (birth.value && updateAge() && birth.checkValidity()) birth.closest('label').hidden = true;
+    }
     if (join) join.hidden = eligible;
     updateAge();
     summary.replaceChildren();
