@@ -8,7 +8,7 @@
 <p class="honeypot"><label>Não preencher<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
 <label>NIF do aluno<input name="nif_aluno" id="nif-aluno" type="text" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" autocomplete="off" required aria-describedby="nif-note"><span id="nif-note" class="field-note">Indica os 9 algarismos do NIF do aluno.</span></label>
 <button class="button primary" type="button" id="continue-nif">Continuar</button>
-<div class="identify" id="registration-choice" hidden><p><strong>Como queres continuar?</strong></p><button class="button" type="button" id="identify-young">Já inscrito na ADHFI · identificar aluno</button><button class="button" type="button" id="new-young" style="margin-top:10px">Nova inscrição · preencher dados</button><p class="small">Para um jovem já inscrito, confirma a conta do encarregado de educação.</p></div>
+<div class="identify" id="registration-choice" hidden><button class="button" type="button" id="identify-young">Retomar identificação</button><button class="button" type="button" id="new-young" style="margin-top:10px">Continuar sem conta</button><p class="small">Se já tens conta, os dados são recuperados pelo NIF. Se não tens, continua com uma nova inscrição.</p></div>
 <p class="form-status" id="identify-status" role="status" aria-live="polite"></p>
 <div class="notice" id="identified-summary" hidden></div>
 <fieldset id="registration-details" hidden disabled style="border:0;padding:0;margin:0;display:grid;gap:18px"><label>Nome completo do aluno<input name="participante" id="participante" type="text" autocomplete="off" maxlength="160" required></label>

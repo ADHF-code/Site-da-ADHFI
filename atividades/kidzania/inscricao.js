@@ -73,7 +73,8 @@
   }
   function proceed() {
     if (!checkNif()) return false;
-    currentNif = nif.value; choice.hidden = false; next.hidden = true;
+    currentNif = nif.value; choice.hidden = true; next.hidden = true;
+    button.click();
     return true;
   }
   nif.addEventListener('input', () => {
@@ -96,9 +97,12 @@
     currentNif = nif.value; nonce = crypto.randomUUID();
     const url = new URL('https://cfi-lab.netlify.app/identificar-aluno.html');
     if (membership) url.searchParams.set('participantes', 'todos');
+    url.searchParams.set('automatico', 'sim');
     url.searchParams.set('origem', location.origin); url.searchParams.set('pedido', nonce);
     popup = window.open(url.href, 'adhfi-identificar-aluno', 'popup,width=560,height=740');
-    status.textContent = popup ? 'Confirma o participante na janela da tua conta ADHFI / CFI.' : 'Permite a abertura da janela da conta para identificar o participante.';
+    choice.hidden = false;
+    button.hidden = !!popup;
+    status.textContent = popup ? 'A identificar o participante pelo NIF. Se necessário, entra na tua conta na janela aberta.' : 'O navegador bloqueou a identificação. Toca em Retomar identificação ou continua sem conta.';
   });
   window.addEventListener('message', event => {
     if (!nonce || event.origin !== 'https://cfi-lab.netlify.app' || event.source !== popup || event.data?.nonce !== nonce) return;

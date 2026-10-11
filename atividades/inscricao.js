@@ -25,7 +25,7 @@
   function updateAge() {
     if (!birth) return true;
     const age = ageAtEvent();
-    birth.setCustomValidity(age === null || age < 10 || age > 126 ? 'Indica uma data válida. O Halloween é a partir dos 10 anos.' : '');
+    birth.setCustomValidity(age === null || age < 10 || age > 60 ? 'Indica uma data válida. O Halloween é dos 10 aos 60 anos.' : '');
     if (age === null) { ageInfo.textContent = ''; return false; }
     participantKind.value = age < 18 ? 'Menor' : 'Adulto';
     ageInfo.textContent = age < 18 ? 'Menor de 18 anos: são necessários os contactos do encarregado de educação. Identificação de jovem: ADHFI-J.' : (age <= 23 ? 'Dos 18 aos 23 anos: contactos do próprio participante. Como associado, terá número ADHFI-J e número de associado.' : 'A partir dos 24 anos: contactos do próprio participante. Como associado, terá apenas número de associado.');
@@ -37,7 +37,7 @@
       form.elements.email.closest('label').firstChild.textContent = age < 18 ? 'Email do encarregado de educação' : 'Email do participante';
       form.elements.telefone.closest('label').firstChild.textContent = age < 18 ? 'Telemóvel do encarregado de educação' : 'Telemóvel do participante';
     }
-    return age >= 10 && age <= 126;
+    return age >= 10 && age <= 60;
   }
   if (birth) birth.addEventListener('input', updateAge);
   function updatePrice() {
@@ -63,7 +63,7 @@
     mode = ''; nonce = null; popup = null; code.value = '';
     if (birth) { birth.value = ''; birth.setCustomValidity(''); birth.closest('label').hidden = false; ageInfo.textContent = ''; }
     eligible = false;
-    if (membership) { associateCode.value = ''; category.value = 'nao_associado'; category.closest('label').hidden = false; participantKind.value = ''; updatePrice(); }
+    if (membership) { associateCode.value = ''; category.value = 'nao_associado'; category.closest('label').hidden = true; participantKind.value = ''; updatePrice(); }
     if (form.elements.grupo) form.elements.grupo.value = '';
     details.hidden = true; details.disabled = true; summary.hidden = true; summary.replaceChildren();
     for (const field of core) {
@@ -74,7 +74,8 @@
   }
   function proceed() {
     if (!checkNif()) return false;
-    currentNif = nif.value; choice.hidden = false; next.hidden = true;
+    currentNif = nif.value; choice.hidden = true; next.hidden = true;
+    button.click();
     return true;
   }
   nif.addEventListener('input', () => {
@@ -97,9 +98,12 @@
     currentNif = nif.value; nonce = crypto.randomUUID();
     const url = new URL('https://cfi-lab.netlify.app/identificar-aluno.html');
     if (membership) url.searchParams.set('participantes', 'todos');
+    url.searchParams.set('automatico', 'sim');
     url.searchParams.set('origem', location.origin); url.searchParams.set('pedido', nonce);
     popup = window.open(url.href, 'adhfi-identificar-aluno', 'popup,width=560,height=740');
-    status.textContent = popup ? 'Confirma o participante na janela da tua conta ADHFI / CFI.' : 'Permite a abertura da janela da conta para identificar o participante.';
+    choice.hidden = false;
+    button.hidden = !!popup;
+    status.textContent = popup ? 'A identificar o participante pelo NIF. Se necessário, entra na tua conta na janela aberta.' : 'O navegador bloqueou a identificação. Toca em Retomar identificação ou continua sem conta.';
   });
   window.addEventListener('message', event => {
     if (!nonce || event.origin !== 'https://cfi-lab.netlify.app' || event.source !== popup || event.data?.nonce !== nonce) return;
@@ -141,6 +145,7 @@
     updateAge();
     summary.replaceChildren();
     const title = document.createElement('strong'); title.textContent = [young.name, young.adhfiId, young.associateId].filter(Boolean).join(' · '); summary.append(title);
+    const condition = document.createElement('p'); condition.className = 'small'; condition.textContent = (eligible ? (young.kind === 'adult' ? 'Associado ADHFI' : 'Filho de associado · ADHFI-J') : 'Não associado / condição por confirmar') + ' · ' + price.value + ' €'; summary.append(condition);
     const contact = document.createElement('p'); contact.className = 'small';
     contact.textContent = [guardian.name, guardian.email, guardian.phone].filter(v => typeof v === 'string' && v.trim()).join(' · '); summary.append(contact);
     for (const field of core) {
