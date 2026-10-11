@@ -44,7 +44,7 @@
     if (!membership) return;
     const discounted = category.value === 'associado' || category.value === 'filho_associado';
     price.value = discounted ? '15' : '18';
-    verification.value = discounted && !eligible ? 'Por confirmar pela associação' : (mode === 'existing' ? 'Consultado na conta ADHFI' : 'Declarado no formulário');
+    verification.value = 'Condição declarada · por confirmar pela associação';
     priceNote.textContent = price.value + ' € · entrada + jantar' + (discounted && !eligible ? ' · condição de associado por confirmar' : '');
   }
   if (category) category.addEventListener('change', updatePrice);
@@ -62,7 +62,7 @@
   function resetDetails() {
     mode = ''; nonce = null; popup = null; code.value = ''; associateCode.value = ''; birth.value = ''; form.elements.idade.value = ''; resetParticipation();
     eligible = false;
-    if (membership) { associateCode.value = ''; category.value = 'nao_associado'; category.closest('label').hidden = false; participantKind.value = ''; updatePrice(); }
+    if (membership) { associateCode.value = ''; category.value = ''; category.closest('label').hidden = false; participantKind.value = ''; updatePrice(); }
     if (form.elements.grupo) form.elements.grupo.value = '';
     details.hidden = true; details.disabled = true; summary.hidden = true; summary.replaceChildren();
     for (const field of core) {
@@ -74,7 +74,7 @@
   function proceed() {
     if (!checkNif()) return false;
     currentNif = nif.value; choice.hidden = true; next.hidden = true;
-    button.click();
+    document.getElementById('new-young').click();
     return true;
   }
   nif.addEventListener('input', () => {
@@ -91,64 +91,6 @@
     status.textContent = 'Preenche os dados para esta inscrição.';
     if (join) join.hidden = false;
     updateAge(); updatePrice(); name.focus();
-  });
-  button.addEventListener('click', () => {
-    if (!checkNif()) return;
-    currentNif = nif.value; nonce = crypto.randomUUID();
-    const url = new URL('https://cfi-lab.netlify.app/identificar-aluno.html');
-    if (membership) url.searchParams.set('participantes', 'todos');
-    url.searchParams.set('automatico', 'sim');
-    url.searchParams.set('origem', location.origin); url.searchParams.set('pedido', nonce);
-    popup = window.open(url.href, 'adhfi-identificar-aluno', 'popup,width=560,height=740');
-    choice.hidden = false;
-    button.hidden = !!popup;
-    status.textContent = popup ? 'A identificar o participante pelo NIF. Se necessário, entra na tua conta na janela aberta.' : 'O navegador bloqueou a identificação. Toca em Retomar identificação ou continua sem conta.';
-  });
-  window.addEventListener('message', event => {
-    if (!nonce || event.origin !== 'https://cfi-lab.netlify.app' || event.source !== popup || event.data?.nonce !== nonce) return;
-    if (event.data.type === 'adhfi-activity-ready') {
-      popup.postMessage({ type: 'adhfi-activity-request', nonce, nif: currentNif }, 'https://cfi-lab.netlify.app');
-      return;
-    }
-    if (event.data.type === 'adhfi-activity-not-found') {
-      document.getElementById('new-young').click();
-      status.textContent = 'Não foi encontrado um participante com este NIF ligado à tua conta. Continua a inscrição e, se quiseres, pede informação para te tornares associado.';
-      nonce = null; popup = null; return;
-    }
-    if (event.data.type !== 'adhfi-activity-student') return;
-    const young = event.data.young, guardian = event.data.guardian || {};
-    if ((!membership && young?.kind === 'adult') || !young || typeof young.name !== 'string' || !young.name.trim() || !validNif(young.nif) || (young.adhfiId && !/^ADHFI-J-\d{4,}$/.test(young.adhfiId))) {
-      status.textContent = 'A ficha do participante precisa de confirmação. Contacta a associação ou utiliza a opção de preencher dados.';
-      return;
-    }
-    mode = 'existing'; nif.value = young.nif; nif.setCustomValidity(''); currentNif = young.nif;
-    name.value = young.name; code.value = young.adhfiId || ''; associateCode.value = typeof young.associateId === 'string' ? young.associateId.slice(0,80) : ''; resetParticipation();
-    if (membership) {
-      associateCode.value = typeof young.associateId === 'string' ? young.associateId.slice(0,80) : '';
-      participantKind.value = young.kind === 'adult' ? 'Adulto' : 'Jovem';
-      eligible = young.memberEligible === true;
-      category.value = eligible ? (young.kind === 'adult' ? 'associado' : 'filho_associado') : 'nao_associado';
-      category.closest('label').hidden = true;
-      updatePrice();
-    }
-    for (const [field, value] of [['responsavel', guardian.name], ['email', guardian.email], ['telefone', guardian.phone]]) {
-      form.elements[field].value = typeof value === 'string' ? value : '';
-    }
-    choice.hidden = true; details.disabled = false; details.hidden = false; summary.hidden = false;
-    if (birth && young.birth) { birth.value = young.birth.slice(0,10); birth.closest('label').hidden = !!ageAtEvent() || ageAtEvent()===0; }
-    if (join) join.hidden = eligible;
-    updateAge();
-    summary.replaceChildren();
-    const title = document.createElement('strong'); title.textContent = [young.name, young.adhfiId, young.associateId].filter(Boolean).join(' · '); summary.append(title);
-    const ageLine = document.createElement('p'); ageLine.className='small'; const age=ageAtEvent(); ageLine.textContent=(age===null?'Idade por confirmar':age+' anos à data da visita')+' · '+(young.associateId?'Associado ADHFI':young.adhfiId?'Jovem ADHFI · ADHFI-J':'Participante identificado'); summary.append(ageLine);
-    const contact = document.createElement('p'); contact.className = 'small';
-    contact.textContent = [guardian.name, guardian.email, guardian.phone].filter(v => typeof v === 'string' && v.trim()).join(' · '); summary.append(contact);
-    for (const field of core) {
-      const input = form.elements[field], filled = Boolean(input.value.trim());
-      input.readOnly = filled; input.closest('label').hidden = filled;
-    }
-    status.textContent = 'Participante identificado. Escolhe se autorizas a participação ou precisas de mais informações.';
-    nonce = null; popup = null;
   });
   const options=document.getElementById('participation-options');
   const info=document.getElementById('information-form');

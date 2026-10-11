@@ -28,7 +28,7 @@
     birth.setCustomValidity(age === null || age < 10 || age > 60 ? 'Indica uma data válida. O Halloween é dos 10 aos 60 anos.' : '');
     if (age === null) { ageInfo.textContent = ''; return false; }
     participantKind.value = age < 18 ? 'Menor' : 'Adulto';
-    ageInfo.textContent = age < 18 ? 'Menor de 18 anos: são necessários os contactos do encarregado de educação. Identificação de jovem: ADHFI-J.' : (age <= 23 ? 'Dos 18 aos 23 anos: contactos do próprio participante. Como associado, terá número ADHFI-J e número de associado.' : 'A partir dos 24 anos: contactos do próprio participante. Como associado, terá apenas número de associado.');
+    ageInfo.textContent = age + ' anos à data do evento.';
     const guardian = form.elements.responsavel;
     guardian.required = age < 18;
     guardian.disabled = age >= 18;
@@ -44,8 +44,8 @@
     if (!membership) return;
     const discounted = category.value === 'associado' || category.value === 'filho_associado';
     price.value = discounted ? '15' : '18';
-    verification.value = discounted && !eligible ? 'Por confirmar pela associação' : (mode === 'existing' ? 'Consultado na conta ADHFI' : 'Declarado no formulário');
-    priceNote.textContent = price.value + ' € · entrada + jantar' + (discounted && !eligible ? ' · condição de associado por confirmar' : '');
+    verification.value = 'Condição declarada · por confirmar pela associação';
+    priceNote.textContent = !category.value ? 'Seleciona a condição do participante para indicar o preço.' : price.value + ' € · entrada + jantar' + (discounted && !eligible ? ' · condição de associado por confirmar' : '');
   }
   if (category) category.addEventListener('change', updatePrice);
   let popup, nonce, mode = '', currentNif = '';
@@ -63,7 +63,7 @@
     mode = ''; nonce = null; popup = null; code.value = '';
     if (birth) { birth.value = ''; birth.setCustomValidity(''); birth.closest('label').hidden = false; ageInfo.textContent = ''; }
     eligible = false;
-    if (membership) { associateCode.value = ''; category.value = 'nao_associado'; category.closest('label').hidden = true; participantKind.value = ''; updatePrice(); }
+    if (membership) { associateCode.value = ''; category.value = ''; category.closest('label').hidden = false; participantKind.value = ''; updatePrice(); }
     if (form.elements.grupo) form.elements.grupo.value = '';
     details.hidden = true; details.disabled = true; summary.hidden = true; summary.replaceChildren();
     for (const field of core) {
@@ -75,7 +75,7 @@
   function proceed() {
     if (!checkNif()) return false;
     currentNif = nif.value; choice.hidden = true; next.hidden = true;
-    button.click();
+    document.getElementById('new-young').click();
     return true;
   }
   nif.addEventListener('input', () => {
@@ -92,68 +92,6 @@
     status.textContent = 'Preenche os dados para esta inscrição.';
     if (join) join.hidden = false;
     updateAge(); updatePrice(); name.focus();
-  });
-  button.addEventListener('click', () => {
-    if (!checkNif()) return;
-    currentNif = nif.value; nonce = crypto.randomUUID();
-    const url = new URL('https://cfi-lab.netlify.app/identificar-aluno.html');
-    if (membership) url.searchParams.set('participantes', 'todos');
-    url.searchParams.set('automatico', 'sim');
-    url.searchParams.set('origem', location.origin); url.searchParams.set('pedido', nonce);
-    popup = window.open(url.href, 'adhfi-identificar-aluno', 'popup,width=560,height=740');
-    choice.hidden = false;
-    button.hidden = !!popup;
-    status.textContent = popup ? 'A identificar o participante pelo NIF. Se necessário, entra na tua conta na janela aberta.' : 'O navegador bloqueou a identificação. Toca em Retomar identificação ou continua sem conta.';
-  });
-  window.addEventListener('message', event => {
-    if (!nonce || event.origin !== 'https://cfi-lab.netlify.app' || event.source !== popup || event.data?.nonce !== nonce) return;
-    if (event.data.type === 'adhfi-activity-ready') {
-      popup.postMessage({ type: 'adhfi-activity-request', nonce, nif: currentNif }, 'https://cfi-lab.netlify.app');
-      return;
-    }
-    if (event.data.type === 'adhfi-activity-not-found') {
-      document.getElementById('new-young').click();
-      status.textContent = 'Não foi encontrado um participante com este NIF ligado à tua conta. Continua a inscrição e, se quiseres, pede informação para te tornares associado.';
-      nonce = null; popup = null; return;
-    }
-    if (event.data.type !== 'adhfi-activity-student') return;
-    const young = event.data.young, guardian = event.data.guardian || {};
-    if ((!membership && young?.kind === 'adult') || !young || typeof young.name !== 'string' || !young.name.trim() || !validNif(young.nif) || (young.adhfiId && !/^ADHFI-J-\d{4,}$/.test(young.adhfiId))) {
-      status.textContent = 'A ficha do participante precisa de confirmação. Contacta a associação ou utiliza a opção de preencher dados.';
-      return;
-    }
-    mode = 'existing'; nif.value = young.nif; nif.setCustomValidity(''); currentNif = young.nif;
-    name.value = young.name; code.value = young.adhfiId || '';
-    if (membership) {
-      associateCode.value = typeof young.associateId === 'string' ? young.associateId.slice(0,80) : '';
-      participantKind.value = young.kind === 'adult' ? 'Adulto' : 'Jovem';
-      eligible = young.memberEligible === true;
-      category.value = eligible ? (young.kind === 'adult' ? 'associado' : 'filho_associado') : 'nao_associado';
-      category.closest('label').hidden = true;
-      updatePrice();
-    }
-    for (const [field, value] of [['responsavel', guardian.name], ['email', guardian.email], ['telefone', guardian.phone]]) {
-      form.elements[field].value = typeof value === 'string' ? value : '';
-    }
-    choice.hidden = true; details.disabled = false; details.hidden = false; summary.hidden = false;
-    if (birth) {
-      birth.value = typeof young.birth === 'string' ? young.birth.slice(0,10) : '';
-      birth.closest('label').hidden = false;
-      if (birth.value && updateAge() && birth.checkValidity()) birth.closest('label').hidden = true;
-    }
-    if (join) join.hidden = eligible;
-    updateAge();
-    summary.replaceChildren();
-    const title = document.createElement('strong'); title.textContent = [young.name, young.adhfiId, young.associateId].filter(Boolean).join(' · '); summary.append(title);
-    const condition = document.createElement('p'); condition.className = 'small'; condition.textContent = (eligible ? (young.kind === 'adult' ? 'Associado ADHFI' : 'Filho de associado · ADHFI-J') : 'Não associado / condição por confirmar') + ' · ' + price.value + ' €'; summary.append(condition);
-    const contact = document.createElement('p'); contact.className = 'small';
-    contact.textContent = [guardian.name, guardian.email, guardian.phone].filter(v => typeof v === 'string' && v.trim()).join(' · '); summary.append(contact);
-    for (const field of core) {
-      const input = form.elements[field], filled = Boolean(input.value.trim());
-      input.readOnly = filled; input.closest('label').hidden = filled;
-    }
-    status.textContent = 'Participante identificado. Confirma a autorização e envia a inscrição.';
-    nonce = null; popup = null;
   });
   form.addEventListener('submit', event => {
     if (!mode) { event.preventDefault(); proceed(); return; }
