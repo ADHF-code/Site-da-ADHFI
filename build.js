@@ -9,7 +9,12 @@ for (const file of ['sitemap.xml', 'googled7f3aa5fad8b73a8.html']) {
   if (fs.existsSync(file)) fs.copyFileSync(file, path.join(outDir, file));
 }
 
+for (const directory of ['assets', 'atividades']) {
+  fs.cpSync(path.join(__dirname, directory), path.join(outDir, directory), { recursive: true });
+}
+
 let html = fs.readFileSync('index.html', 'utf8');
+html = html.replace('<a href="#emacao">Em ação</a>', '<a href="/atividades/">Atividades e Férias</a>\n      <a href="#emacao">Em ação</a>');
 
 if (!html.includes('rel="canonical"')) {
   html = html.replace('</head>', '<link rel="canonical" href="https://www.adhfi.site/">\n</head>');
