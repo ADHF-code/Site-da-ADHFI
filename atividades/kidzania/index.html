@@ -2,17 +2,17 @@
 <div class="eyebrow" style="margin-top:28px">ADHFI · CFI</div><h1>Visita à KidZania</h1><p class="intro"><strong>19 de novembro de 2026 · 30 € por aluno · almoço incluído</strong></p>
 <img class="activity-photo" src="/assets/kidzania-adhfi.webp" alt="Cidade de profissões da KidZania, com o emblema da ADHFI" width="1640" height="960">
 <div class="detail-grid"><section class="box"><h2>Um dia em cheio</h2><p><strong>A tua cidade espera-te!</strong> Uma visita à KidZania organizada pela Associação ADHFI.</p><div class="facts"><div class="fact"><span>Data</span><strong>19 de novembro de 2026</strong></div><div class="fact"><span>Valor por aluno</span><strong>30 € · almoço incluído</strong></div><div class="fact"><span>Início</span><strong>9h00</strong></div><div class="fact"><span>Regresso</span><strong>Depois das 15h00</strong></div></div><p>Viagem de autocarro entre a associação e o centro comercial UBBO, com regresso à associação.</p><p>Almoço incluído. Escolhe cachorro ou pizza no formulário.</p><div class="notice">O envio deste formulário é um pedido de inscrição. A associação confirma a participação e comunica as instruções de pagamento.</div></section>
-<section class="box"><h2>Inscrição</h2><p class="small">Começa pelo NIF do aluno. Depois, preenche os dados para esta inscrição. Não precisas de conta.</p>
+<section class="box"><h2>Inscrição</h2><p class="small">Uma inscrição por participante. Preenche o nome, o NIF e a data de nascimento.</p>
 <form name="kidzania-2026" method="POST" action="/atividades/kidzania/inscricao-recebida/" data-netlify="true" netlify-honeypot="bot-field" id="kidzania-form" data-registration>
 <input type="hidden" name="form-name" value="kidzania-2026"><input type="hidden" name="atividade" value="KidZania — 19 de novembro de 2026"><input type="hidden" name="valor" value="30 € por aluno · almoço incluído"><input type="hidden" name="origem" value="adhfi">
 <p class="honeypot"><label>Não preencher<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-<label>NIF do aluno<input name="nif_aluno" id="nif-aluno" type="text" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" autocomplete="off" required aria-describedby="nif-note"><span id="nif-note" class="field-note">Indica os 9 algarismos do NIF do aluno.</span></label>
-<button class="button primary" type="button" id="continue-nif">Continuar</button>
-<div id="registration-choice" hidden><button type="button" id="new-young">Preencher inscrição</button></div>
-<p class="form-status" id="identify-status" role="status" aria-live="polite"></p>
-<div class="notice" id="identified-summary" hidden></div>
-<fieldset id="registration-details" hidden disabled style="border:0;padding:0;margin:0;display:grid;gap:18px"><label>Nome completo do aluno<input name="participante" id="participante" type="text" autocomplete="off" maxlength="160" required></label>
-<input type="hidden" name="adhfi_j" id="adhfi-j"><input type="hidden" name="numero_associado"><input type="hidden" name="idade"><label>Data de nascimento do participante<input type="date" name="data_nascimento" required min="1900-01-01" max="2026-11-19"><span class="field-note">Para confirmar a idade à data da visita.</span></label>
+<label>Nome completo do aluno<input name="participante" id="participante" type="text" autocomplete="off" maxlength="160" required></label><label>NIF do aluno<input name="nif_aluno" id="nif-aluno" type="text" inputmode="numeric" pattern="[0-9]{9}" maxlength="9" autocomplete="off" required aria-describedby="nif-note"><span id="nif-note" class="field-note">Indica os 9 algarismos do NIF do aluno.</span></label><label>Data de nascimento do participante<input type="date" name="data_nascimento" required min="1900-01-01" max="2026-11-19"><span class="field-note">Para confirmar a idade à data da visita.</span></label>
+
+
+
+
+<fieldset id="registration-details" style="border:0;padding:0;margin:0;display:grid;gap:18px">
+<input type="hidden" name="adhfi_j" id="adhfi-j"><input type="hidden" name="numero_associado"><input type="hidden" name="idade">
 <label>Nome do encarregado de educação<input name="responsavel" type="text" autocomplete="name" maxlength="160" required></label>
 <label>Email do encarregado de educação<input name="email" type="email" autocomplete="email" required></label>
 <label>Telemóvel<input name="telefone" type="tel" autocomplete="tel" required></label>
@@ -28,4 +28,4 @@
 </fieldset></form>
 <form name="kidzania-informacoes-2026" method="POST" action="/atividades/kidzania/informacoes-recebidas/" data-netlify="true" netlify-honeypot="bot-field" id="information-form" hidden>
 <input type="hidden" name="form-name" value="kidzania-informacoes-2026"><input type="hidden" name="atividade" value="KidZania · 19 novembro 2026"><input type="hidden" name="origem" value="adhfi"><p class="honeypot"><label>Não preencher<input name="bot-field" tabindex="-1" autocomplete="off"></label></p><h3>Preciso de mais informações</h3><p class="small">Este pedido não cria uma inscrição nem reserva uma vaga.</p><label>O teu nome<input name="nome" required maxlength="160" autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Telemóvel (opcional)<input name="telefone" type="tel" autocomplete="tel" maxlength="30"></label><label>O que gostarias de saber? (opcional)<textarea name="mensagem" maxlength="1200"></textarea></label><p class="small">Utilizamos estes contactos para responder ao teu pedido sobre a visita. Contacto: info@adhfi.com.</p><button class="button primary" type="submit">Pedir informações</button><button class="button" type="button" id="back-to-registration">Voltar à inscrição</button></form>
-</section></div></main><footer>Organização · Associação Desenvolvimento Humano e Formação Integral · <a href="mailto:info@adhfi.com">info@adhfi.com</a></footer><script src="/atividades/kidzania/inscricao-simples-v1.js" defer></script></body></html>
+</section></div></main><footer>Organização · Associação Desenvolvimento Humano e Formação Integral · <a href="mailto:info@adhfi.com">info@adhfi.com</a></footer><script src="/atividades/kidzania/formulario-normal-v1.js" defer></script></body></html>
