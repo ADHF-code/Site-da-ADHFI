@@ -31,9 +31,40 @@ function checkNif(){
  nif.setCustomValidity(valid?'':'Confirma o NIF: deve ter 9 algarismos e ser válido.');
  return nif.reportValidity();
 }
+// Use explicit selectors instead of the platform-specific date calendar.
+// Keep the existing ISO field so Netlify submissions and age rules stay compatible.
+function simpleBirthDate(){
+ const label=birth.closest('label'),group=document.createElement('fieldset');
+ group.className='birth-date';
+ group.innerHTML='<legend>Data de nascimento do participante</legend><div class="birth-date-fields"><label>Dia<select id="birth-day" required autocomplete="bday-day"><option value="">Dia</option></select></label><label>Mês<select id="birth-month" required autocomplete="bday-month"><option value="">Mês</option></select></label><label>Ano<select id="birth-year" required autocomplete="bday-year"><option value="">Ano</option></select></label></div><p id="birth-error" class="birth-date-error" role="status" hidden></p><span class="field-note">Escolhe o dia, o mês e o ano. Idade considerada em 31 de outubro de 2026: dos 10 aos 60 anos.</span>';
+ const day=group.querySelector('#birth-day'),month=group.querySelector('#birth-month'),year=group.querySelector('#birth-year'),error=group.querySelector('#birth-error');
+ for(let d=1;d<=31;d++)day.add(new Option(String(d),String(d).padStart(2,'0')));
+ ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'].forEach((m,i)=>month.add(new Option(m,String(i+1).padStart(2,'0'))));
+ const min=birth.min,max=birth.max,initial=birth.value;
+ for(let y=Number(max.slice(0,4));y>=Number(min.slice(0,4));y--)year.add(new Option(String(y),String(y)));
+ if(initial){const [y,m,d]=initial.split('-');year.value=y;month.value=m;day.value=d;}
+ birth.type='hidden';birth.required=false;
+ group.append(birth);label.replaceWith(group);
+ function sync(){
+  const complete=day.value&&month.value&&year.value,value=complete?year.value+'-'+month.value+'-'+day.value:'',date=complete?new Date(Date.UTC(Number(year.value),Number(month.value)-1,Number(day.value))):null;
+  let message='';
+  if(complete&&date.getUTCDate()!==Number(day.value))message='Esta data não existe. Confirma o dia, o mês e o ano.';
+  else if(complete&&(value<min||value>max))message='O participante deve ter entre 10 e 60 anos em 31 de outubro de 2026.';
+  day.setCustomValidity(message);day.setAttribute('aria-invalid',String(!!message));
+  error.textContent=message;error.hidden=!message;
+  birth.value=complete&&!message?value:'';
+  birth.dispatchEvent(new Event('input',{bubbles:true}));
+ }
+ for(const field of [day,month,year]){field.setAttribute('aria-describedby','birth-error');field.addEventListener('change',sync);field.addEventListener('input',sync);}
+ form.addEventListener('reset',()=>setTimeout(sync,0));
+ // Restore values after browser autofill/back navigation, including hidden-field updates.
+ window.addEventListener('pageshow',sync);
+ sync();
+}
 nif.addEventListener('input',()=>nif.setCustomValidity(''));
 birth.addEventListener('input',updateAge);
 birth.addEventListener('change',updateAge);
+simpleBirthDate();
 function proceed(){return checkNif() && updateAge();}
 updateAge();
 form.addEventListener('submit',event=>{if(!checkNif()||!updateAge()){event.preventDefault();birth.reportValidity();}});
