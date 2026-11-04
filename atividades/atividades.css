@@ -5,11 +5,14 @@
 
 
 /* Eventos concluídos */
-.activity.past-event{background:#f1eee8;border-color:#d8d0c3}
-.activity.past-event:hover{border-color:#9c8260}
-.activity.past-event .art{filter:saturate(.65) brightness(.9)}
-.past-tag{background:#e2d8c8;color:#6e5a3e}
-.past-event-page{background:#f2efe9}
-.past-event-page .eyebrow{color:#7c6748}
-.past-event-box{background:#e9e2d8;border-color:#d2c4b0}
-.past-event-label{display:inline-block;margin-bottom:10px;padding:7px 10px;border-radius:999px;background:#d7c7b1;color:#5f4c34;font-size:11px;font-weight:800;letter-spacing:.08em}
+.activity.past-event{background:#d9d4cc;border-color:#b9afa2;box-shadow:0 8px 22px #11244b12}
+.activity.past-event:hover{border-color:#7f6a52;background:#d2ccc3}
+.activity.past-event .art{filter:saturate(.35) brightness(.72) contrast(1.05)}
+.activity.past-event h2,.activity.past-event .meta{color:#3f3a34}
+.activity.past-event p{color:#665f57}
+.activity.past-event .arrow{color:#766451}
+.past-tag{background:#6f6253;color:#fff}
+.past-event-page{background:#e8e3dc}
+.past-event-page .eyebrow{color:#6c5a44}
+.past-event-box{background:#d8d0c5;border-color:#bfae98}
+.past-event-label{display:inline-block;margin-bottom:10px;padding:7px 10px;border-radius:999px;background:#6f6253;color:#fff;font-size:11px;font-weight:800;letter-spacing:.08em}
