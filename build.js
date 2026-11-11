@@ -5,7 +5,7 @@ const outDir = path.join(__dirname, 'dist');
 fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
 
-for (const file of ['sitemap.xml', 'googled7f3aa5fad8b73a8.html']) {
+for (const file of ['sitemap.xml', 'googled7f3aa5fad8b73a8.html', 'favicon.png']) {
   if (fs.existsSync(file)) fs.copyFileSync(file, path.join(outDir, file));
 }
 
@@ -14,6 +14,8 @@ for (const directory of ['assets', 'atividades']) {
 }
 
 let html = fs.readFileSync('index.html', 'utf8');
+ // Google-search favicon: use a stable, crawlable file instead of a data URI.
+ html = html.replace(/<link rel="icon" href="data:image\/png;base64,[^"]+">/, '<link rel="icon" type="image/png" sizes="128x128" href="/favicon.png">\n<link rel="apple-touch-icon" href="/favicon.png">');
 html = html.replace('<a href="#emacao">Em ação</a>', '<a href="/atividades/">Atividades e Férias</a>\n      <a href="#emacao">Em ação</a>');
 
 if (!html.includes('rel="canonical"')) {
