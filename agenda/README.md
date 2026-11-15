@@ -17,3 +17,5 @@ Future Airtable migration: replace the feed provider while preserving this JSON 
 Homepage shows up to three actual upcoming events; it does not invent a third event when only two exist. Historical events remain accessible. `/atividades/` redirects to `/agenda/`; nested detail/form routes remain intact.
 
 Build: `node build.js`.
+
+The Férias quick filter selects events whose category is Férias (case and accent insensitive). It uses the same catalogue; no separate holiday list is required.
