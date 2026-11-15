@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "timezone": "Europe/Lisbon",
+  "events": [
+    {
+      "id": "halloween-2026",
+      "title": "Halloween — A Maldição do Convento",
+      "startDate": "2026-10-31",
+      "endDate": "2026-10-31",
+      "time": "19h00 — 22h00 · portas às 18h30",
+      "location": "Escola Vasco Santana",
+      "labels": [
+        "adhfi",
+        "cfi"
+      ],
+      "category": "Eventos",
+      "price": "15 € associados e filhos · 18 € não associados",
+      "includes": [
+        "Entrada",
+        "Jantar"
+      ],
+      "excludes": [],
+      "description": "Uma noite de enigmas, equipas e Halloween. Desafios por salas, sob pressão, com trabalho de equipa e muita criatividade.",
+      "image": "/assets/halloween-2026-associados.webp",
+      "url": "/atividades/halloween/",
+      "registrationStatus": "closed"
+    },
+    {
+      "id": "cinema-strada-2026",
+      "title": "Cinema Strada",
+      "startDate": "2026-11-13",
+      "endDate": "2026-11-13",
+      "time": "Ebenezer · 12h50 / O Gato do Chapéu · 13h30",
+      "location": "Shopping Strada",
+      "labels": [
+        "adhfi",
+        "cfi"
+      ],
+      "category": "Experiências",
+      "price": "10 €",
+      "includes": [
+        "Cinema",
+        "Transporte"
+      ],
+      "excludes": [
+        "Almoço"
+      ],
+      "description": "Escolhe o teu filme: Ebenezer às 12h50 ou O Gato do Chapéu às 13h30. Levar dinheiro para almoço no Strada.",
+      "image": "/assets/agenda-cinema.webp",
+      "url": "/atividades/cinema-strada/",
+      "registrationStatus": "open"
+    },
+    {
+      "id": "kidzania-2026",
+      "title": "Visita à KidZania",
+      "startDate": "2026-11-19",
+      "endDate": "2026-11-19",
+      "time": "9h00 · regresso depois das 15h00",
+      "location": "KidZania UBBO",
+      "labels": [
+        "adhfi",
+        "cfi"
+      ],
+      "category": "Experiências",
+      "price": "30 €",
+      "includes": [
+        "Almoço",
+        "Transporte"
+      ],
+      "excludes": [],
+      "description": "Um dia em cheio. A tua cidade espera-te! Viagem de autocarro entre a associação e o UBBO. Escolhe cachorro ou pizza no formulário.",
+      "image": "/assets/kidzania-adhfi.webp",
+      "url": "/atividades/kidzania/",
+      "registrationStatus": "open"
+    },
+    {
+      "id": "banquete-natal-2026",
+      "title": "Banquete de Natal: O Desaparecimento do Rodolfo",
+      "startDate": "2026-12-19",
+      "endDate": "2026-12-19",
+      "time": "Jantar · horário em breve",
+      "location": null,
+      "labels": [
+        "adhfi"
+      ],
+      "category": "Eventos",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "description": "Enquanto jantam, descubram o enigma do desaparecimento do Rodolfo. Um grupo de teatro amador apresenta um mistério com pistas, personagens e suspeitos. Serás tu a descobrir?",
+      "image": "/assets/agenda-banquete.webp",
+      "url": "/atividades/banquete-natal/",
+      "registrationStatus": "soon"
+    }
+  ]
+}

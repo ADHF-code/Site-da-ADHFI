@@ -9,7 +9,7 @@ for (const file of ['sitemap.xml', 'googled7f3aa5fad8b73a8.html', 'favicon.png']
   if (fs.existsSync(file)) fs.copyFileSync(file, path.join(outDir, file));
 }
 
-for (const directory of ['assets', 'atividades']) {
+for (const directory of ['assets', 'atividades', 'agenda']) {
   fs.cpSync(path.join(__dirname, directory), path.join(outDir, directory), { recursive: true });
 }
 
@@ -203,5 +203,9 @@ if (!html.includes("const routes = {")) {
   html = html.replace('</body>', `${clickScript}\n</body>`);
 }
 
+// The homepage and every future consumer share the same agenda feed.
+html = html.replace('Atividades e Férias</a>', 'Agenda ADHFI</a>');
+const agendaPreview = `<section id="agenda-preview" style="background:#f7f5ef;padding:55px 0"><div class="wrap"><div class="eyebrow">Experiências que nos juntam</div><h2>A acontecer na ADHFI</h2><div id="agenda-upcoming" class="agenda-upcoming"></div><a class="btn btn-primary" href="/agenda/" style="margin-top:24px">Ver Agenda completa ↗</a></div></section><link rel="stylesheet" href="/agenda/preview.css"><script src="/agenda/preview.js" defer></script>`;
+html = html.replace('<section id="emacao">', agendaPreview + '<section id="emacao">');
 fs.writeFileSync(path.join(outDir, 'index.html'), html);
 console.log('ADHFI footer partnership built to dist/');
