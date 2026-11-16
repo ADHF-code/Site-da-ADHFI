@@ -74,6 +74,26 @@
       "registrationStatus": "open"
     },
     {
+      "endDate": "2026-12-12",
+      "time": "Horários a comunicar às famílias",
+      "location": null,
+      "labels": [
+        "adhfi"
+      ],
+      "category": "Eventos",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "registrationStatus": "soon",
+      "id": "festa-bolinha-natal-2026",
+      "title": "Festa de Natal do Moinho do Bolinha",
+      "startDate": "2026-12-12",
+      "description": "Festa de Natal do Moinho do Bolinha com participação da ADHFI. Informações práticas, horários e condições serão comunicados às famílias.",
+      "image": "/assets/moinho-bolinha-logo.webp",
+      "url": "/atividades/festa-natal-bolinha/",
+      "source": "Plano atualizado de 12/11/2026 e comunicação às famílias de 14/11/2026"
+    },
+    {
       "id": "banquete-natal-2026",
       "title": "Banquete de Natal: O Desaparecimento do Rodolfo",
       "startDate": "2026-12-19",
@@ -88,9 +108,135 @@
       "includes": [],
       "excludes": [],
       "description": "Enquanto jantam, descubram o enigma do desaparecimento do Rodolfo. Um grupo de teatro amador apresenta um mistério com pistas, personagens e suspeitos. Serás tu a descobrir?",
-      "image": "/assets/agenda-banquete.webp",
+      "image": "/assets/banquete-rodolfo-2026-v2.webp",
       "url": "/atividades/banquete-natal/",
       "registrationStatus": "soon"
+    },
+    {
+      "endDate": "2026-12-21",
+      "time": "IFC Futsal de manhã · horários exatos a comunicar",
+      "location": null,
+      "labels": [
+        "adhfi",
+        "ifc"
+      ],
+      "category": "Férias",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "registrationStatus": "soon",
+      "id": "ferias-dezembro-21-2026",
+      "title": "IFC Futsal + Luzes de Natal em Lisboa",
+      "startDate": "2026-12-21",
+      "description": "Manhã: IFC Futsal. Tarde: Ver as luzes em Lisboa. Preços, transportes, horários exatos e inscrições serão comunicados às famílias. Os detalhes por definir mantêm-se provisórios.",
+      "image": "/assets/adhfi-atividades.webp",
+      "url": "/atividades/ferias-dezembro-21/",
+      "source": "Comunicação às famílias e cartaz de 14/11/2026"
+    },
+    {
+      "endDate": "2026-12-22",
+      "time": "IFC Futsal de manhã · horários exatos a comunicar",
+      "location": null,
+      "labels": [
+        "adhfi",
+        "ifc"
+      ],
+      "category": "Férias",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "registrationStatus": "soon",
+      "id": "ferias-dezembro-22-2026",
+      "title": "IFC Futsal + Wonderland",
+      "startDate": "2026-12-22",
+      "description": "Manhã: IFC Futsal. Tarde: Wonderland. Preços, transportes, horários exatos e inscrições serão comunicados às famílias. Os detalhes por definir mantêm-se provisórios.",
+      "image": "/assets/adhfi-atividades.webp",
+      "url": "/atividades/ferias-dezembro-22/",
+      "source": "Comunicação às famílias e cartaz de 14/11/2026"
+    },
+    {
+      "endDate": "2026-12-23",
+      "time": "IFC Futsal de manhã · horários exatos a comunicar",
+      "location": null,
+      "labels": [
+        "adhfi",
+        "ifc"
+      ],
+      "category": "Férias",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "registrationStatus": "soon",
+      "id": "ferias-dezembro-23-2026",
+      "title": "IFC Futsal + Desafio de Natal em Lisboa",
+      "startDate": "2026-12-23",
+      "description": "Manhã: IFC Futsal. Tarde: Desafio de Natal em Lisboa. Preços, transportes, horários exatos e inscrições serão comunicados às famílias. Os detalhes por definir mantêm-se provisórios.",
+      "image": "/assets/adhfi-atividades.webp",
+      "url": "/atividades/ferias-dezembro-23/",
+      "source": "Comunicação às famílias e cartaz de 14/11/2026"
+    },
+    {
+      "endDate": "2026-12-28",
+      "time": "IFC Futsal de manhã · horários exatos a comunicar",
+      "location": null,
+      "labels": [
+        "adhfi",
+        "ifc"
+      ],
+      "category": "Férias",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "registrationStatus": "soon",
+      "id": "ferias-dezembro-28-2026",
+      "title": "IFC Futsal + Filme de Natal",
+      "startDate": "2026-12-28",
+      "description": "Manhã: IFC Futsal. Tarde: Filme de Natal. Preços, transportes, horários exatos e inscrições serão comunicados às famílias. Os detalhes por definir mantêm-se provisórios.",
+      "image": "/assets/adhfi-atividades.webp",
+      "url": "/atividades/ferias-dezembro-28/",
+      "source": "Comunicação às famílias e cartaz de 14/11/2026"
+    },
+    {
+      "endDate": "2026-12-29",
+      "time": "IFC Futsal de manhã · horários exatos a comunicar",
+      "location": null,
+      "labels": [
+        "adhfi",
+        "ifc"
+      ],
+      "category": "Férias",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "registrationStatus": "soon",
+      "id": "ferias-dezembro-29-2026",
+      "title": "IFC Futsal + Cinema",
+      "startDate": "2026-12-29",
+      "description": "Manhã: IFC Futsal. Tarde: Cinema. Preços, transportes, horários exatos e inscrições serão comunicados às famílias. Os detalhes por definir mantêm-se provisórios.",
+      "image": "/assets/adhfi-atividades.webp",
+      "url": "/atividades/ferias-dezembro-29/",
+      "source": "Comunicação às famílias e cartaz de 14/11/2026"
+    },
+    {
+      "endDate": "2026-12-30",
+      "time": "IFC Futsal de manhã · horários exatos a comunicar",
+      "location": null,
+      "labels": [
+        "adhfi",
+        "ifc"
+      ],
+      "category": "Férias",
+      "price": null,
+      "includes": [],
+      "excludes": [],
+      "registrationStatus": "soon",
+      "id": "ferias-dezembro-30-2026",
+      "title": "IFC Futsal · Férias de dezembro",
+      "startDate": "2026-12-30",
+      "description": "Manhã: IFC Futsal. Tarde: Programa da tarde por definir. A ADHFI estará aberta todo o dia, em horário normal. Preços, transportes, horários exatos e inscrições serão comunicados às famílias. Os detalhes por definir mantêm-se provisórios.",
+      "image": "/assets/adhfi-atividades.webp",
+      "url": "/atividades/ferias-dezembro-30/",
+      "source": "Comunicação às famílias e cartaz de 14/11/2026"
     }
   ]
 }

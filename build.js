@@ -209,3 +209,16 @@ const agendaPreview = `<section id="agenda-preview" style="background:#f7f5ef;pa
 html = html.replace('<section id="emacao">', agendaPreview + '<section id="emacao">');
 fs.writeFileSync(path.join(outDir, 'index.html'), html);
 console.log('ADHFI footer partnership built to dist/');
+
+// New agenda detail pages: generated from the single central event catalogue.
+const agendaFeed = JSON.parse(fs.readFileSync('agenda/events.json', 'utf8'));
+const safe = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+for (const event of agendaFeed.events) {
+  if (!event.source) continue; // Existing authored pages and forms remain untouched.
+  const directory = path.join(outDir, event.url);
+  fs.mkdirSync(directory, {recursive:true});
+  const date = new Intl.DateTimeFormat('pt-PT',{day:'numeric',month:'long',year:'numeric',timeZone:'Europe/Lisbon'}).format(new Date(event.startDate+'T12:00:00Z'));
+  fs.writeFileSync(path.join(directory,'index.html'), `<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${safe(event.title)} · ADHFI</title><meta name="description" content="${safe(event.description)}"><link rel="canonical" href="https://adhfi.site${event.url}"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/atividades/atividades.css"><link rel="stylesheet" href="/agenda/agenda.css"><script src="/atividades/atividades.js" defer></script></head><body><header><nav aria-label="Navegação principal"><a class="brand" href="/"><img src="/assets/adhfi-atividades.webp" alt="ADHFI"><span>Associação ADHFI</span></a><a data-home href="/">Início ADHFI</a></nav></header><main><a class="back" href="/agenda/" data-activity-link>← Voltar à Agenda ADHFI</a><div class="eyebrow" style="margin-top:28px">${event.labels.map(label=>safe(label.toUpperCase())).join(' · ')}</div><h1>${safe(event.title)}</h1><p class="intro"><strong>${safe(date)}</strong></p><div class="agenda-detail-art"><img src="${safe(event.image)}" alt="${safe(event.title)}" width="960" height="540"></div><div class="detail-grid"><section class="box"><h2>O que está previsto</h2><p>${safe(event.description)}</p></section><section class="box"><div class="coming-label">BREVEMENTE</div><h2>Informações práticas</h2><p><strong>Horário:</strong> ${safe(event.time||'A anunciar')}</p><p><strong>Local:</strong> ${safe(event.location||'A anunciar')}</p><p><strong>Valor:</strong> ${safe(event.price||'A anunciar')}</p><p>As condições e informações de participação serão comunicadas às famílias.</p><a class="button" href="mailto:info@adhfi.com">Contactar a ADHFI</a></section></div></main><footer>Associação Desenvolvimento Humano e Formação Integral · <a href="mailto:info@adhfi.com">info@adhfi.com</a></footer></body></html>`);
+}
+const sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+['/','/agenda/',...agendaFeed.events.map(event=>event.url)].map(url=>'<url><loc>https://adhfi.site'+safe(url)+'</loc></url>').join('')+'</urlset>';
+fs.writeFileSync(path.join(outDir,'sitemap.xml'), sitemap);

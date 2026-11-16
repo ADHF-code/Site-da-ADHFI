@@ -19,3 +19,5 @@ Homepage shows up to three actual upcoming events; it does not invent a third ev
 Build: `node build.js`.
 
 The Férias quick filter selects events whose category is Férias (case and accent insensitive). It uses the same catalogue; no separate holiday list is required.
+
+November 16 update: Christmas banquet art replaced with a new editorial illustration. Bolinha Christmas party (12 December) and six holiday days were reconciled with the family email and festive poster sent 14 November. The newer communication supersedes the earlier December 20 entry and afternoon closure on December 30; neither is published. Unknown prices and logistics remain unannounced. New detail pages and sitemap are generated from events.json at build time. The 2027 planning calendar remains to be reconciled before public release.
