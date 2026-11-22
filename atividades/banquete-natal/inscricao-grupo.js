@@ -4,7 +4,7 @@
   const slots = [...form.querySelectorAll('[data-participant]')];
   const counter = document.getElementById('group-count');
   const add = document.getElementById('add-person');
-  let visible = Math.max(4, ...slots.map((slot, index) =>
+  let visible = Math.max(3, ...slots.map((slot, index) =>
     [...slot.querySelectorAll('input, select')].some(field => field.value) ? index + 1 : 0));
   function showSlots() {
     slots.forEach((slot, index) => {
@@ -30,12 +30,12 @@
       const active = !slot.disabled;
       const started = filled || Boolean(type.value) || Boolean(meal.value);
       if (active && filled) count++;
-      name.required = active && (index < 4 || started);
-      type.required = active && (index < 4 || started);
-      meal.required = active && (index < 4 || started);
+      name.required = active && (index < 3 || started);
+      type.required = active && (index < 3 || started);
+      meal.required = active && (index < 3 || started);
       name.setCustomValidity(name.value && !filled ? 'Indica o nome da pessoa.' : '');
     }
-    counter.textContent = count + ' de 7 pessoas preenchidas · mínimo 4';
+    counter.textContent = count + ' de 7 pessoas preenchidas · mínimo 3';
   }
   form.addEventListener('input', validate);
   form.addEventListener('change', validate);
