@@ -1,0 +1,8 @@
+.group-registration{scroll-margin-top:24px}
+.group-registration fieldset{min-width:0;margin:0;padding:16px;border:1px solid #dfe5ef;border-radius:12px;display:grid;gap:14px}
+.group-registration legend{padding:0 6px;font-size:14px;font-weight:700}
+.group-registration .participant-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(110px,.65fr);gap:12px}
+.group-registration .group-count{margin:0;font-weight:700;color:#7a1d24}
+.group-registration .instructions{margin:0}
+.christmas-page .whatsapp-link{background:#17663c;border-color:#17663c;color:#fff}
+@media(max-width:440px){.group-registration .participant-fields{grid-template-columns:1fr}}
